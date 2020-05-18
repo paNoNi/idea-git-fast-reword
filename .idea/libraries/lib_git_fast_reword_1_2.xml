@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="lib-git-fast-reword-1.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/lib-git-fast-reword-1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

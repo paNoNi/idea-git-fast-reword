@@ -1,0 +1,30 @@
+<idea-plugin>
+
+  <id>ifmo.java.idea.git_fast_reword.plugin.id</id>
+
+  <name>ifmo.java.idea.git_fast_reword.IdeaGitFastReword</name>
+
+  <version>1.0</version>
+
+  <vendor url="https://github.com/shchuko/git-fast-reword/releases/tag/v1.2-jdk1.8">shchukoANDnoni</vendor>
+
+  <description> Plugin fast reword commit to plugin git4idea </description>
+
+  <idea-version since-build="173.0"/>
+
+  <depends>com.intellij.modules.platform</depends>
+  <depends>com.intellij.modules.java</depends>
+  <depends>Git4Idea</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!--  Add your extensions here  -->
+  </extensions>
+
+  <actions>
+    <action id="ifmo.java.idea.git_fast_reword.IdeaGitFastReword"
+            class="ifmo.java.idea.git_fast_reword.IdeaGitFastReword" text="Fast Edit Commit Message...">
+      <add-to-group group-id="Git.Log.ContextMenu" anchor="after" relative-to-action="Git.Reword.Commit"/>
+    </action>
+  </actions>
+
+</idea-plugin>
