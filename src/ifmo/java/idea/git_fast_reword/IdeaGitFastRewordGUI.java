@@ -7,7 +7,6 @@ import com.intellij.vcs.log.VcsFullCommitDetails;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
@@ -35,8 +34,10 @@ public class IdeaGitFastRewordGUI {
         jFrame = new JFrame("Fast Edit Commit Message");
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getScreenSize();
-        Image icon = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB_PRE);
-        jFrame.setIconImage(icon);
+
+        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader()
+                .getResource("Icon/window_border.png"));
+        jFrame.setIconImage(image);
         int width = dimension.width / 6;
         int height = dimension.height / 6;
         jFrame.setSize(width, height);
