@@ -5,16 +5,14 @@ import com.intellij.ui.components.JBScrollPane;
 import com.intellij.util.ui.JBUI;
 import com.intellij.vcs.log.VcsFullCommitDetails;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import java.awt.image.BufferedImage;
 
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
 
-public class ideaGitFastRewordGUI {
+public class IdeaGitFastRewordGUI {
     private JButton buttonOk;
     private JButton buttonCancel;
     private JFrame jFrame;
@@ -22,7 +20,7 @@ public class ideaGitFastRewordGUI {
     private JLabel jLabel;
     private JTextArea jTextArea;
 
-    public ideaGitFastRewordGUI(VcsFullCommitDetails commit){
+    public IdeaGitFastRewordGUI(VcsFullCommitDetails commit){
         setJFrame();
         setJPanel();
         setButtonOK(jPanel);
@@ -37,6 +35,8 @@ public class ideaGitFastRewordGUI {
         jFrame = new JFrame("Fast Edit Commit Message");
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getScreenSize();
+        Image icon = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB_PRE);
+        jFrame.setIconImage(icon);
         int width = dimension.width / 6;
         int height = dimension.height / 6;
         jFrame.setSize(width, height);
@@ -72,6 +72,7 @@ public class ideaGitFastRewordGUI {
 
     private void setButtonOK(JPanel panel) {
         buttonOk = new JButton("OK");
+        buttonOk.setBackground(JBColor.blue);
         panel.add(buttonOk, getContain(0.5f, 0, 8, 6, 2, 1));
     }
 
@@ -81,7 +82,8 @@ public class ideaGitFastRewordGUI {
         panel.add(buttonCancel, getContain(0.5f, 0, 8, 10, 2, 1));
     }
 
-    private GridBagConstraints getContain(float weightx, float weighty, int gridy, int gridx, int gridwidth, int gridheight) {
+    private GridBagConstraints getContain(float weightx, float weighty, int gridy, int gridx, int gridwidth,
+                                          int gridheight) {
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.weightx = weightx;
         constraints.weighty = weighty;
