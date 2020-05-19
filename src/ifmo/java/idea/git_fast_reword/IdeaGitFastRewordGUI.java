@@ -36,7 +36,7 @@ public class IdeaGitFastRewordGUI {
         Dimension dimension = toolkit.getScreenSize();
 
         Image image = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader()
-                .getResource("Icon/window_border.png"));
+                .getResource("Icon/idea-fast-reword-icon.png"));
         jFrame.setIconImage(image);
         int width = dimension.width / 6;
         int height = dimension.height / 6;
