@@ -1,14 +1,14 @@
 <idea-plugin>
 
-  <id>ifmo.java.idea.git_fast_reword.plugin.id</id>
+  <id>idea-git-fast-reword</id>
 
-  <name>ifmo.java.idea.git_fast_reword.IdeaGitFastReword</name>
+  <name>Idea Git Fast Reword</name>
 
   <version>1.0</version>
 
-  <vendor url="https://github.com/shchuko/git-fast-reword/releases/tag/v1.2-jdk1.8">shchukoANDnoni</vendor>
+  <vendor url="https://github.com/paNoNi/idea-git-fast-reword" email="yaroshchuk2000@gmail.com" >paNoNi&amp;shchuko</vendor>
 
-  <description> Plugin fast reword commit to plugin git4idea </description>
+  <description>A utility helps you to reword commits faster</description>
 
   <idea-version since-build="173.0"/>
 
@@ -16,9 +16,7 @@
   <depends>com.intellij.modules.java</depends>
   <depends>Git4Idea</depends>
 
-  <extensions defaultExtensionNs="com.intellij">
-    <!--  Add your extensions here  -->
-  </extensions>
+  <extensions defaultExtensionNs="com.intellij"/>
 
   <actions>
     <action id="ifmo.java.idea.git_fast_reword.IdeaGitFastReword"
