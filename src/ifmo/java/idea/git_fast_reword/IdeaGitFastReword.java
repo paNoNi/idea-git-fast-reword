@@ -16,6 +16,7 @@ import shchuko.git_fast_reword.RepositoryNotFoundException;
 import shchuko.git_fast_reword.RepositoryNotOpenedException;
 
 import javax.swing.*;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -35,7 +36,9 @@ public class IdeaGitFastReword extends AnAction {
         createCancelButtonListener();
         createOkButtonListener(commit);
         listenButtonOk();
-
+        createEscapeListener();
+        createOkListener(commit);
+        gitFastRewordGUI.getText().requestFocusInWindow();
 
     }
 
@@ -99,6 +102,19 @@ public class IdeaGitFastReword extends AnAction {
                 + protectedBranch);
     }
 
+    private void createEscapeListener() {
+        gitFastRewordGUI.getText().addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent keyEvent) {
+                if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    gitFastRewordGUI.getJFrame().dispose();
+                }
+            }
+
+        });
+    }
+
     private void listenButtonOk() {
         gitFastRewordGUI.getText().addKeyListener(new KeyListener() {
             @Override
@@ -120,30 +136,42 @@ public class IdeaGitFastReword extends AnAction {
     }
 
     private void createOkButtonListener(VcsFullCommitDetails commit) {
-        gitFastRewordGUI.getButtonOk().addActionListener(actionEvent -> {
-            try (GitFastReword gitFastReword = new GitFastReword()) {
-                gitFastReword.openRepository(Paths.get(commit.getRoot().getPath()));
-                if (commit.getFullMessage().equals(gitFastRewordGUI.getText().getText())) {
-                    return;
-                }
-                gitFastReword.reword(commit.getId().asString(), gitFastRewordGUI.getText().getText());
-                throw new GitOperationFailureException("Some text");
-            } catch (RepositoryNotFoundException | IOException | GitOperationFailureException |
-                    RepositoryNotOpenedException e) {
-                Notifications.Bus.notify(new Notification("git-fast-reword", "IdeaGitFastRewordPlugin",
-                        e.getMessage() , NotificationType.ERROR));
-                e.printStackTrace();
-            }finally {
+        gitFastRewordGUI.getButtonOk().addActionListener(actionEvent -> rewordMessage(commit));
+    }
+
+    private void rewordMessage(VcsFullCommitDetails commit) {
+        try (GitFastReword gitFastReword = new GitFastReword()) {
+            gitFastReword.openRepository(Paths.get(commit.getRoot().getPath()));
+            if (commit.getFullMessage().equals(gitFastRewordGUI.getText().getText())) {
+                return;
+            }
+            gitFastReword.reword(commit.getId().asString(), gitFastRewordGUI.getText().getText());
+            throw new GitOperationFailureException("Some text");
+        } catch (RepositoryNotFoundException | IOException | GitOperationFailureException |
+                RepositoryNotOpenedException e) {
+            Notifications.Bus.notify(new Notification("git-fast-reword", "IdeaGitFastRewordPlugin",
+                    e.getMessage() , NotificationType.ERROR));
+            e.printStackTrace();
+        }finally {
+            gitFastRewordGUI.getJFrame().dispose();
+        }
+    }
+
+    private void createCancelButtonListener() {
+        gitFastRewordGUI.getButtonCancel().addActionListener(actionEvent -> {
+            if (actionEvent.getActionCommand().equals("Cancel")) {
                 gitFastRewordGUI.getJFrame().dispose();
             }
         });
     }
 
-    private void createCancelButtonListener() {
-        JFrame jFrame = gitFastRewordGUI.getJFrame();
-        gitFastRewordGUI.getButtonCancel().addActionListener(actionEvent -> {
-            if (actionEvent.getActionCommand().equals("Cancel")) {
-                jFrame.dispose();
+    private void createOkListener(VcsFullCommitDetails commit) {
+        gitFastRewordGUI.getText().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent keyEvent) {
+                if (KeyEvent.VK_ENTER == keyEvent.getKeyCode()) {
+                    rewordMessage(commit);
+                }
             }
         });
     }
