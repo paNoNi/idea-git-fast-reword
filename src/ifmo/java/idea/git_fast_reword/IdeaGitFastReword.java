@@ -169,7 +169,7 @@ public class IdeaGitFastReword extends AnAction {
         gitFastRewordGUI.getText().addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent keyEvent) {
-                if (KeyEvent.VK_ENTER == keyEvent.getKeyCode()) {
+                if (keyEvent.isControlDown() && KeyEvent.VK_ENTER == keyEvent.getKeyCode()) {
                     rewordMessage(commit);
                 }
             }
